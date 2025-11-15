@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: api-docs-service
+server:
+  port: 8090
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: auth
+        url: http://localhost:8080/auth/v3/api-docs
+      - name: users
+        url: http://localhost:8080/users/v3/api-docs
+#springdoc:
+#  group-configs:
+#    - group: auth
+#      paths-to-match: /dummy-auth/**
+#      openapi-url: /v3/api-docs/auth
+#      urls:
+#        - url: lb://auth-service/v3/api-docs
+#          name: auth
+#    - group: users
+#      paths-to-match: /dummy-users/**
+#      openapi-url: /v3/api-docs/users
+#      urls:
+#        - url: lb://user-service/v3/api-docs
+#          name: users
+
+logging:
+  level:
+    org.springframework.cloud.loadbalancer: DEBUG
+    reactor.netty.http.client: DEBUG
+    org.springdoc: DEBUG

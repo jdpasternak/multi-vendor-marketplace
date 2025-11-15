@@ -28,13 +28,13 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
-    private List<String> exemptPaths = List.of("/h2-console/**", "/swagger-ui/**", "*/**");
+    private List<String> exemptPaths = List.of("/h2-console/**", "/swagger-ui/**", "/**");
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests((requests) -> requests.requestMatchers("/auth/register", "/auth/login", "/auth/refresh", "/h2-console/**", "/swagger-ui/**", "*/**").permitAll()
+                .authorizeHttpRequests((requests) -> requests.requestMatchers("/auth/register", "/auth/login", "/auth/refresh", "/h2-console/**", "/swagger-ui/**", "/**").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

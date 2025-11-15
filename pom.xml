@@ -10,6 +10,11 @@
 
 	<modules>
 		<module>auth-service</module>
+		<module>tenant-service</module>
+		<module>discovery-service</module>
+		<module>gateway-service</module>
+		<module>user-service</module>
+		<module>api-docs-service</module>
 	</modules>
 
 	<parent>
@@ -18,17 +23,4 @@
 		<version>3.5.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>2023.0.3</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 </project>

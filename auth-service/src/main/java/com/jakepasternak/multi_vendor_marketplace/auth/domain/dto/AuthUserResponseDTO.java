@@ -1,13 +1,23 @@
 package com.jakepasternak.multi_vendor_marketplace.auth.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.jakepasternak.multi_vendor_marketplace.auth.domain.AuthUser;
+import com.jakepasternak.multi_vendor_marketplace.auth.domain.AuthRole;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.sql.Timestamp;
+import java.util.Set;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-@JsonIgnoreProperties({"passwordHash"})
-public class AuthUserResponseDTO extends AuthUser {
+public class AuthUserResponseDTO {
+
+    private String id;
+
+    private String email;
+
+    private String status;
+
+    private Set<String> roles;
+
+    private Timestamp createdAt;
+
     private String token;
 }

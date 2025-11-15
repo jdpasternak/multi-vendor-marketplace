@@ -5,14 +5,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
-import java.util.*;
-
+import java.util.Collection;
+import java.util.Set;
 
 @Data
 @Entity
@@ -21,8 +20,8 @@ import java.util.*;
 public class AuthUser implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     private String email;
 
@@ -31,18 +30,16 @@ public class AuthUser implements UserDetails {
 
     private String status;
 
-    private List<GrantedAuthority> authorities = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<AuthRole> roles;
 
-//    @Enumerated(EnumType.STRING)
-//    @ElementCollection(fetch = FetchType.LAZY)
-//    private Set<AuthRole> roles;
-
-    @CreatedDate
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority())).toList();
     }
 
     @Override

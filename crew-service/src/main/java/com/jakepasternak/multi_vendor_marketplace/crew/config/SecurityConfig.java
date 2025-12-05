@@ -1,4 +1,4 @@
-package com.jakepasternak.multi_vendor_marketplace.user.config;
+package com.jakepasternak.multi_vendor_marketplace.crew.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
